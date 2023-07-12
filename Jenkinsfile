@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
-                        sh "docker build -t cicddevops:latest ."
+                        sh "docker build -t cicddevops ."
                     }
                 }
             }
