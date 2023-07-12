@@ -12,7 +12,6 @@ spec:
       labels:
         app: spring-boot-k8s
     spec:
-      terminationGracePeriodSeconds: 30
       containers:
         - name: spring-boot-k8s
           image: vuvananh/cicddevops:latest # Image that will be used to containers in the cluster
