@@ -8,9 +8,9 @@ pipeline {
     
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
-        ORGANIZATION_NAME = "IRIS"
+        ORGANIZATION_NAME = "iris"
         YOUR_DOCKERHUB_USERNAME = "vananh"
-        SERVICE_NAME = "Java"
+        SERVICE_NAME = "java"
         REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
     }
 
