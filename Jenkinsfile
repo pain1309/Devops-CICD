@@ -63,7 +63,7 @@ pipeline {
             steps {
                 script {
                     withKubeConfig([credentialsId: "fec0d395-f8d3-43ff-a2ff-5a6ad7d2e982"]) {
-                        sh 'kubectl patch deployment spring-boot-k8s-deployment -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"build\":\"${BUILD_ID}\"}}}}}"'
+                        sh 'kubectl patch deployment spring-boot-k8s-deployment -p {\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"build\":\"${BUILD_ID}\"}}}}}'
                         sh 'kubectl apply -f $JENKINS_HOME/workspace/CICD-github-webhook/deploymentservice.yaml'
                     }
                 }
