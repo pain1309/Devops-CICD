@@ -7,7 +7,7 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME= tool 'sonar-scanner'
+        // SCANNER_HOME= tool 'sonar-scanner'
         ORGANIZATION_NAME = "iris"
         YOUR_DOCKERHUB_USERNAME = "vuvananh"
         SERVICE_NAME = "java"
