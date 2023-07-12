@@ -8,6 +8,10 @@ pipeline {
     
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
+        ORGANIZATION_NAME = "IRIS"
+        YOUR_DOCKERHUB_USERNAME = "vananh"
+        SERVICE_NAME = "Java"
+        REPOSITORY_TAG="${YOUR_DOCKERHUB_USERNAME}/${ORGANIZATION_NAME}-${SERVICE_NAME}:${BUILD_ID}"
     }
 
     stages {
@@ -40,21 +44,22 @@ pipeline {
                 sh " mvn clean install "
             }
         }
-        stage('DOCKER BUILD') {
+        // stage('DOCKER BUILD') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
+        //                 sh "docker build -t cicddevops:${env.BUILD_ID} ."
+        //             }
+        //         }
+        //     }
+        // }
+        stage('DOCKER BUILD and PUSH') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
-                        sh "docker build -t cicddevops ."
-                    }
-                }
-            }
-        }
-        stage('DOCKER PUSH') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
-                        sh "docker tag cicddevops vuvananh/cicddevops:latest"
-                        sh "docker push vuvananh/cicddevops:latest"
+                        // sh "docker tag cicddevops:${BUILD_ID} vuvananh/cicddevops:${BUILD_ID}"
+                        // sh "docker push vuvananh/cicddevops:${env.BUILD_ID}"
+                        sh "docker image build -t ${REPOSITORY_TAG} ."
                     }
                 }
             }
@@ -63,7 +68,6 @@ pipeline {
             steps {
                 script {
                     withKubeConfig([credentialsId: "fec0d395-f8d3-43ff-a2ff-5a6ad7d2e982"]) {
-                        sh 'kubectl patch deployment spring-boot-k8s-deployment -p {\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"build\":\"${BUILD_ID}\"}}}}}'
                         sh 'kubectl apply -f $JENKINS_HOME/workspace/CICD-github-webhook/deploymentservice.yaml'
                     }
                 }
