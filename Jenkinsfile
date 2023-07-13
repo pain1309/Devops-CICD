@@ -61,7 +61,7 @@ pipeline {
         stage('DEPLOY TO K8s') {
             steps {
                 script {
-                    withKubeConfig([credentialsId: "914cfcf9-75b0-4428-a452-a48926f6d80f"]) {
+                    withKubeConfig([credentialsId: "665d9323-3772-49df-a810-79f0fcf2646a"]) {
                         // sh 'kubectl delete pod -l app=spring-boot-k8s'
                         sh 'kubectl apply -f $JENKINS_HOME/workspace/CICD-github-webhook/deploymentservice.yaml'
                     }
