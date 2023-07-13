@@ -51,7 +51,7 @@ pipeline {
                         // sh "docker tag cicddevops:${BUILD_ID} vuvananh/cicddevops:${BUILD_ID}"
                         // sh "docker push vuvananh/cicddevops:${env.BUILD_ID}"
                         sh "docker image build -t ${REPOSITORY_TAG} ."
-                        sh "docker tag ${REPOSITORY_TAG}"
+                        sh "docker tag ${REPOSITORY_TAG} ${REPOSITORY_TAG}"
                         sh "docker push ${REPOSITORY_TAG}"
                     }
                 }
