@@ -44,10 +44,11 @@ pipeline {
                 sh " mvn clean install "
             }
         }
-        stage('DOCKER BUILD') {
+        stage('DOCKER BUILD and PUSH') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
+                        sh "docker build cicddevops:${BUILD_ID} ."
                         sh "docker tag cicddevops:${BUILD_ID} vuvananh/cicddevops:${BUILD_ID}"
                         sh "docker push vuvananh/cicddevops:${BUILD_ID}"
                         // sh "docker image build -t ${REPOSITORY_TAG} ."
