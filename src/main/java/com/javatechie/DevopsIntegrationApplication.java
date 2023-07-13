@@ -11,7 +11,7 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message(){
-		return "WELCOME TO DEVOPS SHACK 9";
+		return "WELCOME TO DEVOPS SHACK 10";
 	}
 
 	public static void main(String[] args) {
