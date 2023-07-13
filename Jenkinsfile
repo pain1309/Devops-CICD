@@ -7,7 +7,7 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME= tool 'sonar-scanner'
+        // SCANNER_HOME= tool 'sonar-scanner'
         ORGANIZATION_NAME = "iris"
         YOUR_DOCKERHUB_USERNAME = "vuvananh"
         SERVICE_NAME = "java"
@@ -44,16 +44,7 @@ pipeline {
                 sh " mvn clean install "
             }
         }
-        // stage('DOCKER BUILD') {
-        //     steps {
-        //         script {
-        //             withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
-        //                 sh "docker build -t cicddevops:${env.BUILD_ID} ."
-        //             }
-        //         }
-        //     }
-        // }
-        stage('DOCKER BUILD and PUSH') {
+        stage('DOCKER BUILD') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'e1b7a014-cebe-4a63-b37d-0b8dbe512bb9', toolName: 'docker-latest') {
